@@ -3,51 +3,16 @@
  */
 public class EANValidator {
 
-    String numberEAN;
+    public static boolean validate(final String eanCode) {
+        int sum = 0;
+        int checkSum = Integer.parseInt(eanCode.substring(12));
 
-    int arrayOddPosition[];
+        for (int i = 1; i < eanCode.length(); i++) {
+            int currentIntFromString = Integer.parseInt(eanCode.substring(i - 1, i));
+            sum += (i % 2 == 0) ? 3 * currentIntFromString : currentIntFromString;
+        }
 
-    int arrayEvenPosition[];
-
-    int result[];
-
-    public EANValidator(String numberEAN){
-        this.numberEAN = numberEAN;
+        boolean sumDivisibleByTen = sum % 10 == 0;
+        return (sumDivisibleByTen && checkSum == 0) || 10 - (sum % 10) == checkSum;
     }
-
-
-    public boolean validate(String numberEAN) {
-        boolean flag = true;
-
-        int number;
-
-        number = Integer.parseInt(numberEAN);
-
-
-        for(int i = 0; i< numberEAN.length(); i++ ){
-
-            if(i % 2 ==0){
-                arrayEvenPosition[i] = (number%10)*1;
-            }
-            else{
-                arrayOddPosition[i] = (number%10)*3;
-            }
-        }
-
-        for(int i=0; i < arrayOddPosition.length; i++){
-            result[0] = arrayEvenPosition[i]+arrayOddPosition[i];
-        }
-
-        if (result[0] == arrayOddPosition.length-1) {
-                flag = true;
-        }
-        else {
-            flag = false;
-        }
-
-
-        return flag;
-    }
-
-
 }
