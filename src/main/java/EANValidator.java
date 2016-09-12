@@ -1,6 +1,3 @@
-/**
- * Created by JimmyRomero on 8/26/2016.
- */
 public class EANValidator {
 
     public static boolean validate(final String eanCode) {
